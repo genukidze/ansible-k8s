@@ -1,0 +1,23 @@
+---
+
+- name: Include variables file
+  include_vars: variables.yml
+
+
+- name: Install needed packages
+  package:
+    name: {{item}}
+    state: present
+    with_items:
+      - vim
+      - ca-certificates
+      - curl
+      - gnupg
+      - software-properties-common
+
+- name: Install apt-transport-https only if it's Ubuntu
+  package:
+    name: apt-transport-https
+    state: present
+    when:
+      - ansible_facts['distribution'] == "Ubuntu"
