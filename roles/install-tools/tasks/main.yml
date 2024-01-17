@@ -3,21 +3,16 @@
 - name: Include variables file
   include_vars: variables.yml
 
+- name: Granting sudo to all tasks in this block
+  become: yes
+  block:
 
-- name: Install needed packages
-  package:
-    name: {{item}}
-    state: present
-    with_items:
-      - vim
-      - ca-certificates
-      - curl
-      - gnupg
-      - software-properties-common
+    - name: Install Vim
+      package:
+        name: vim
+        state: present
 
-- name: Install apt-transport-https only if it's Ubuntu
-  package:
-    name: apt-transport-https
-    state: present
-    when:
-      - ansible_facts['distribution'] == "Ubuntu"
+    - name: Install Curl
+      package:
+        name: curl
+        state: present
