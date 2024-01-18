@@ -1,0 +1,14 @@
+---
+
+- name: Add bitnami's chart repository
+  kubernetes.core.helm_repository:
+    name: bitnami
+    repo_url: "{{ bitnami_repo_url }}"
+
+- name: Deploy helm chart
+  kubernetes.core.helm:
+    name: keycloak
+    chart_ref: bitnami/keycloak
+    release_namespace: test
+    kubeconfig: /etc/rancher/k3s/k3s.yaml
+

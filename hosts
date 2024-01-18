@@ -1,2 +1,2 @@
 [k8s-master]
-ubuntu@3.94.201.71    ansible_ssh_private_key_file=/home/givi/.ssh/test-ansible.pem
+ubuntu@52.90.62.201 ansible_ssh_private_key_file=/home/givi/.ssh/ansible_test.pem

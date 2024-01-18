@@ -1,8 +1,5 @@
 ---
 
-- name: Include variables file
-  include_vars: variables.yml
-
 - name: Granting sudo to all tasks in this block
   become: yes
   block:
@@ -12,7 +9,39 @@
         name: vim
         state: present
 
+    - name: Install Python3
+      package:
+        name: python3
+        state: present
+
     - name: Install Curl
       package:
         name: curl
         state: present
+
+    - name: Install pip
+      apt:
+        name: python3-pip
+        update_cache: true
+        state: present
+      async: 60
+      poll: 60
+
+    - name: Install k8s pre-requisites
+      pip:
+        name:
+        - openshift
+        - pyyaml
+        - kubernetes
+
+    - name: Install helm if not exists
+      unarchive:
+        src: https://get.helm.sh/helm-v3.11.0-linux-amd64.tar.gz
+        dest: /usr/local/bin
+        extra_opts: "--strip-components=1"
+        owner: root
+        group: root
+        mode: 0755
+        remote_src: true
+      args:
+        creates: /usr/local/bin/helm

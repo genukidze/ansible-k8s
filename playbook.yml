@@ -1,7 +1,9 @@
 ---
 
 - hosts: k8s-master
+  become: true
   roles:
   - install-tools
   - install-docker
   - setup-k8s
+  - install-helms
