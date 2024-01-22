@@ -10,6 +10,11 @@
     mode: '0644'
   become: true
 
+- name: Fetching kubeconfig
+  fetch:
+    src: /etc/rancher/k3s/k3s.yaml
+    dest: fetched/kubeconfig
+
 - name: Creating a namespace
   kubernetes.core.k8s:
     name: test
