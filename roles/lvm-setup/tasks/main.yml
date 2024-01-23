@@ -1,10 +1,10 @@
 ---
 
 - name: Creating pv
-  shell: "sudo pvcreate {{ drive_name }}"
+  shell: "sudo pvcreate {{ disk_name }}"
 
 - name: Creating volume group
-  shell: "sudo vgcreate {{vg_name}} {{ drive_name }}"
+  shell: "sudo vgcreate {{vg_name}} {{ disk_name }}"
 
 - name: Installing OpenEBS LVM
   shell: "sudo kubectl apply -f https://openebs.github.io/charts/lvm-operator.yaml"
