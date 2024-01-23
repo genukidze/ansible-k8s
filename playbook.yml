@@ -4,6 +4,6 @@
   become: true
   roles:
   - install-tools
-  - setup-k8s
+  - setup-k3s
   - install-helms
   - creating-ingress
