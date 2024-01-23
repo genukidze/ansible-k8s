@@ -10,5 +10,5 @@
     name: keycloak
     chart_ref: bitnami/keycloak
     release_namespace: test
-    kubeconfig: /etc/rancher/k3s/k3s.yaml
+    kubeconfig: "{{ kubeconfig_path }}"
 

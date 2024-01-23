@@ -1,0 +1,42 @@
+---
+
+- name: Creating pv
+  shell: "sudo pvcreate {{ drive_name }}"
+
+- name: Creating volume group
+  shell: "sudo vgcreate {{vg_name}} {{ drive_name }}"
+
+- name: Installing OpenEBS LVM
+  shell: "sudo kubectl apply -f https://openebs.github.io/charts/lvm-operator.yaml"
+
+
+- name: Creating Storage Class
+  kubernetes.core.k8s:
+    state: present
+    kubeconfig: "{{ kubeconfig_path }}"
+    definition:
+      api_version: storage.k8s.io/v1
+      kind: StorageClass
+      metadata:
+        name: openebs-lvmpv
+      parameters:
+        storage: "lvm"
+        volgroup: "{{ vg_name }}"
+      provisioner: local.csi.openebs.io
+
+- name: Creating PVC
+  kubernetes.core.k8s:
+    state: present
+    kubeconfig: "{{ kubeconfig_path }}"
+    definition:
+      kind: PersistentVolumeClaim
+      apiVersion: v1
+      metadata:
+        name: csi-lvmpv
+      spec:
+        storageClassName: openebs-lvmpv
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: "{{ requested_storage }}"

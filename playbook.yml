@@ -7,3 +7,4 @@
   - setup-k3s
   - install-helms
   - creating-ingress
+  - lvm-setup
