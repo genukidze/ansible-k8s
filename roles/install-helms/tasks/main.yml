@@ -14,4 +14,3 @@
     values:
       ingress:
         enabled: true
-

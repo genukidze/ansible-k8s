@@ -10,6 +10,9 @@
     mode: '0644'
   become: true
 
+- name: Allowing external connections to k3s
+  shell: sed -i -e '/certificate-authority-data:/d' -e '/server:/s@https://127.0.0.1:6443@k3s.cluster.local:6443@' -e '4a\ \ \ \ insecure-skip-tls-verify:\ true' /etc/rancher/k3s/k3s.yaml
+
 - name: Fetching kubeconfig
   fetch:
     src: "{{ kubeconfig_path }}"

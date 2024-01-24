@@ -8,3 +8,4 @@
   - install-helms
   - creating-ingress
   - lvm-setup
+  - metrics-server-setup

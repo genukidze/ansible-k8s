@@ -24,6 +24,16 @@
         name: lvm2
         state: present
 
+    - name: Installing ufw
+      package:
+        name: ufw
+        state: present
+
+    - name: Allow everything and enable UFW
+      community.general.ufw:
+        state: enabled
+        policy: allow
+
     - name: Install pip
       apt:
         name: python3-pip
