@@ -1,28 +1,55 @@
 ---
 
-- name: Creating pv
-  shell: "sudo pvcreate {{ disk_name }}"
+#- name: Creating pv
+ # shell: "sudo pvcreate {{ disk_name }}"
 
-- name: Creating volume group
-  shell: "sudo vgcreate {{vg_name}} {{ disk_name }}"
+#- name: Creating volume group
+ # shell: "sudo vgcreate {{vg_name}} {{ disk_name }}"
+
+- name: Creating directory for hostpath
+  file:
+    path: /var/openebs/local
+    state: directory
 
 - name: Installing OpenEBS LVM
   shell: "sudo kubectl apply -f https://openebs.github.io/charts/lvm-operator.yaml"
 
 
-- name: Creating Storage Class
-  kubernetes.core.k8s:
-    state: present
-    kubeconfig: "{{ kubeconfig_path }}"
-    definition:
-      api_version: storage.k8s.io/v1
-      kind: StorageClass
-      metadata:
-        name: openebs-lvmpv
-      parameters:
-        storage: "lvm"
-        volgroup: "{{ vg_name }}"
-      provisioner: local.csi.openebs.io
+#- name: Creating Storage Class
+#  kubernetes.core.k8s:
+#    state: present
+#    kubeconfig: "{{ kubeconfig_path }}"
+#    definition:
+#      api_version: storage.k8s.io/v1
+#      kind: StorageClass
+#      metadata:
+#        name: openebs-lvmpv
+#      parameters:
+#        storage: "lvm"
+#        volgroup: "{{ vg_name }}"
+#      provisioner: local.csi.openebs.io
+
+
+#- name: Creating Storage Class
+#  kubernetes.core.k8s:
+#    state: present
+#    kubeconfig: "{{ kubeconfig_path }}"
+#    definition:
+#      apiVersion: storage.k8s.io/v1
+#      kind: StorageClass
+#      metadata:
+#        name: local-hostpath
+#        annotations:
+#          openebs.io/cas-type: local
+#          cas.openebs.io/config: |
+#            - name: StorageType
+#              value: hostpath
+#            - name: BasePath
+#              value: /var/local-hostpath
+#      provisioner: openebs.io/local
+#      reclaimPolicy: Delete
+#      volumeBindingMode: WaitForFirstConsumer
+
 
 - name: Creating PVC
   kubernetes.core.k8s:
@@ -32,9 +59,10 @@
       kind: PersistentVolumeClaim
       apiVersion: v1
       metadata:
-        name: csi-lvmpv
+        name: openebs-hostpath
+        namespace: keycloak
       spec:
-        storageClassName: openebs-lvmpv
+        storageClassName: openebs-hostpath
         accessModes:
         - ReadWriteOnce
         resources:
