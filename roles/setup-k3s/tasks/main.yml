@@ -6,19 +6,19 @@
 
 - name: Chmod
   file:
-    path: /etc/rancher/k3s/k3s.yaml
+    path: "{{ kubeconfig_path }}"
     mode: '0644'
   become: true
 
 - name: Fetching kubeconfig
   fetch:
-    src: /etc/rancher/k3s/k3s.yaml
+    src: "{{ kubeconfig_path }}"
     dest: fetched/kubeconfig
 
 - name: Creating a namespace
   kubernetes.core.k8s:
-    name: test
+    name: keycloak
     api_version: v1
     kind: Namespace
     state: present
-    kubeconfig: /etc/rancher/k3s/k3s.yaml
+    kubeconfig: "{{ kubeconfig_path }}"
