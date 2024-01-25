@@ -42,7 +42,7 @@
       async: 60
       poll: 60
 
-    - name: Install k8s pre-requisites
+    - name: Install k3s pre-requisites
       pip:
         name:
         - openshift

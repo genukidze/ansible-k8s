@@ -3,5 +3,6 @@
 disk_name: "/dev/xvdb"
 vg_name: "lvmvg"
 kubeconfig_path: "/etc/rancher/k3s/k3s.yaml"
-
+hostpath_ebs: true
+lvm_ebs: false
 requested_storage: "4Gi"

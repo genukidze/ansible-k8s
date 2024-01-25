@@ -1,34 +1,37 @@
 ---
 
-#- name: Creating pv
- # shell: "sudo pvcreate {{ disk_name }}"
+- name: Creating pv
+  shell: "sudo pvcreate {{ disk_name }}"
+  when: lvm_ebs
 
-#- name: Creating volume group
- # shell: "sudo vgcreate {{vg_name}} {{ disk_name }}"
+- name: Creating volume group
+  shell: "sudo vgcreate {{vg_name}} {{ disk_name }}"
+  when: lvm_ebs
 
 - name: Creating directory for hostpath
   file:
     path: /var/openebs/local
     state: directory
+  when: hostpath_ebs
 
 - name: Installing OpenEBS LVM
   shell: "sudo kubectl apply -f https://openebs.github.io/charts/lvm-operator.yaml"
 
 
-#- name: Creating Storage Class
-#  kubernetes.core.k8s:
-#    state: present
-#    kubeconfig: "{{ kubeconfig_path }}"
-#    definition:
-#      api_version: storage.k8s.io/v1
-#      kind: StorageClass
-#      metadata:
-#        name: openebs-lvmpv
-#      parameters:
-#        storage: "lvm"
-#        volgroup: "{{ vg_name }}"
-#      provisioner: local.csi.openebs.io
-
+- name: Creating Storage Class
+  kubernetes.core.k8s:
+    state: present
+    kubeconfig: "{{ kubeconfig_path }}"
+    definition:
+      api_version: storage.k8s.io/v1
+      kind: StorageClass
+      metadata:
+        name: openebs-lvmpv
+      parameters:
+        storage: "lvm"
+        volgroup: "{{ vg_name }}"
+      provisioner: local.csi.openebs.io
+  when: lvm_ebs
 
 #- name: Creating Storage Class
 #  kubernetes.core.k8s:
@@ -51,7 +54,7 @@
 #      volumeBindingMode: WaitForFirstConsumer
 
 
-- name: Creating PVC
+- name: Creating hostpath PVC
   kubernetes.core.k8s:
     state: present
     kubeconfig: "{{ kubeconfig_path }}"
@@ -68,3 +71,22 @@
         resources:
           requests:
             storage: "{{ requested_storage }}"
+  when: hostpath_ebs
+
+- name: Creating lvm PVC
+  kubernetes.core.k8s:
+    state: present
+    kubeconfig: "{{ kubeconfig_path }}"
+    definition:
+      kind: PersistentVolumeClaim
+      apiVersion: v1
+      metadata:
+        name: csi-lvmpv
+      spec:
+        storageClassName: openebs-lvmpv
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+          storage: "{{ requested_storage }}"
+  when: lvm_ebs
