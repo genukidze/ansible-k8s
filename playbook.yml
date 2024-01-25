@@ -5,6 +5,5 @@
   roles:
   - prerequisites-setup
   - k3s-setup
-  #- helms-setup
+  - helms-setup
   - openEBS-setup
-  #- metrics-server-setup
