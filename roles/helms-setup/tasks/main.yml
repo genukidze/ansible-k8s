@@ -1,5 +1,9 @@
 ---
 
+- name: Register srv
+  command: "hostname"
+  register: hostname
+
 - name: Add bitnami's chart repository
   kubernetes.core.helm_repository:
     name: bitnami
@@ -14,3 +18,4 @@
     values:
       ingress:
         enabled: true
+        hostname: "keycloak.{{ hostname.stdout }}"
