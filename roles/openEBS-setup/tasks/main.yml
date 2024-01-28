@@ -15,7 +15,7 @@
   when: hostpath_ebs
 
 - name: Installing OpenEBS LVM
-  shell: "sudo kubectl apply -f https://openebs.github.io/charts/lvm-operator.yaml"
+  shell: "$ kubectl apply -f https://raw.githubusercontent.com/openebs/charts/gh-pages/versioned/{{ openebs_version }}/lvm-operator.yaml"
 
 
 - name: Creating Storage Class

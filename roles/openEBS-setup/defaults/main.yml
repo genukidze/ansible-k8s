@@ -6,3 +6,4 @@ kubeconfig_path: "/etc/rancher/k3s/k3s.yaml"
 hostpath_ebs: true
 lvm_ebs: false
 requested_storage: "4Gi"
+openebs_version: "3.0.0"

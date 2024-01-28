@@ -3,3 +3,4 @@
 helm_keycloak_repo_url: "https://github.com/bitnami/charts/tree/main/bitnami/keycloak"
 bitnami_repo_url: "https://charts.bitnami.com/bitnami"
 kubeconfig_path: "/etc/rancher/k3s/k3s.yaml"
+keycloak_chart_version: "17.0.0"
