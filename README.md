@@ -2,18 +2,13 @@
 
 This playbook is created to automatically deploy k3s 1-node cluster.
 
-To start playbook, you should set target machine  ip and private ssh-key in hosts fole and simply run
-
-`ansible-playbook playbook.yml`
-
-in your terminal.
-
 ## Deployment steps
 
 1) Check ansible version on your PC via `ansible --version` command. To execute command you need Ansible 2.15.5
 2) Generate ssh-keys. Public key must be present on the target machine, and private key must be kept on your playbook-executor host.
 3) Check availability on the target machine with `ssh -i "your-private-key.pem" 111.111.111.111` command. Replace private key and ip with your values.
 4) Add target machine to the `hosts` file. For example: `ubuntu@3.235.105.118 ansible_ssh_private_key_file=/home/user/.ssh/my-private-key.pem`, where ubuntu is username with sudo rights on target machine, and ansible_ssh_private_key_file - path to your private key file.
+5) Now you can execute playbook with `ansible-playbook playbook.yml` command in the terminal, being in the directory where playbook is located.
 
 ## Environment Variables
 
