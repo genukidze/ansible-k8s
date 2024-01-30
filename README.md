@@ -86,7 +86,38 @@ Also you should set up `keycloak_chart_version` in helms-setup role and `openebs
 
 Other variables:
 
-| Variable | Meaning |
-|--|---------|
-| helm_keycloak_repo_url | Content Cell |
-| : "https://charts.bitnami.com/bitnami" | Content Cell |
+helms-setup role:
+
+| Variable | Meaning                                |
+|--------|----------------------------------------|
+| helm_keycloak_repo_url | Repository where helm chart is located |
+| bitnami_repo_url | Bitnami repository                     |
+| kubeconfig_path       | Kubeconfig path on the target machine  |
+| keycloak_chart_version       | Desired keycloak chart version         |
+
+k3s-setup role:
+
+| Variable | Meaning                               |
+|--------|---------------------------------------|
+| kubeconfig_path | Kubeconfig path on the target machine |
+| k3s_version| Desired k3s version                   |
+
+openEBS-setup role:
+
+| Variable          | Meaning                                                        |
+|-------------------|----------------------------------------------------------------|
+| disk_name         | Name of the disk which you would like to use for openEBS       |
+| vg_name           | Desired volume group name                                      |
+| kubeconfig_path   | Kubeconfig path on the target machine                          |
+| hostpath_ebs      | True or false. Whether you like to install hostpath ebs or not |
+| lvm_ebs           | True or false. Whether you like to install lvm ebs or not      |
+| requested_storage | Desired storage for openEBS                                    |
+| openebs_version   | Desired openEBS chart version                                  |
+
+prerequisites-setup role:
+
+| Variable | Meaning               |
+|--------|-----------------------|
+| helm_install_url | Helm installation url |
+| helm_version_number| Helm version to use   |
+
