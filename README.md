@@ -63,7 +63,7 @@ repository
    ```
    + Add your public key to authorized_keys:
    ```bash
-   cat <your_public_key_file> >> ~/.ssh/authorized_keys
+   cat your_public_key_file >> ~/.ssh/authorized_keys
    ```
 
 4) Add target machine to the `hosts` file, which is located in the playbook folder. You need to edit this line: `ubuntu@111.111.111.111 ansible_ssh_private_key_file=/home/user/.ssh/my-private-key.pem`, where:
