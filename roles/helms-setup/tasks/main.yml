@@ -13,7 +13,7 @@
   kubernetes.core.helm:
     name: keycloak
     chart_ref: bitnami/keycloak
-    chart_version: "{{ keycloak_chart_version }}"
+    #chart_version: "{{ keycloak_chart_version }}"
     release_namespace: keycloak
     kubeconfig: "{{ kubeconfig_path }}"
     values:
