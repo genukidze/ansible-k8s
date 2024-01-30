@@ -5,7 +5,7 @@ This playbook is created to automatically deploy k3s 1-node cluster.
 ## Deployment steps
 
 1) Check ansible version on your PC via `ansible --version` command. To execute command you need Ansible 2.15.5. If you don't have Ansible, you should install it via [this guide](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html).
-    + a) If your OS is Ubuntu, you can install Ansible executing these commands: 
+    + If your OS is Ubuntu, you can install Ansible executing these commands: 
        - `sudo apt-add-repository ppa:ansible/ansible`
        - `sudo apt update`
        - `sudo apt install ansible`
