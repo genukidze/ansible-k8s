@@ -2,6 +2,38 @@
 
 This playbook is created to automatically deploy k3s 1-node cluster.
 
+
+## Repository structure 
+
+```
+repository
+│   .gitignore                              .gitignore file
+│   playbook.yml                            Ansible playbook                                        
+│   README.md                               This Readme
+│   hosts                                   Hosts file where connectivity to the remote machine should be set up
+│   ansible.cfg                             Ansible configuration file
+└───roles
+│   └───helms-setup                         Keycloak installation role
+│   │   │  └───defaults
+│   │   │      └───main.yml                 Keycloak values are located here
+│   │   │  └───tasks
+│   │   │      └───main.yml                 Keycloak installation script is located here
+│   └───k3s-setup                           K3s installation role
+│   │   └───defaults                        K3s installation values are located here
+│   │   │   └───main.yml                    
+│   │   └───tasks
+│   │   │   └───main.yml                    K3s installation task is located here
+│   └───openEBS-setup                       openEBS installation role
+│   │   └───defaults                        openEBS installation values are located here
+│   │   │   └───main.yml                    
+│   │   └───tasks
+│   │   │   └───main.yml                    openEBS installation task is located here
+│   └───prerequisites-setup                 prerequisites installation role
+│   │   └───defaults                        prerequisites installation values are located here
+│   │   │   └───main.yml                    
+│   │   └───tasks
+│   │   │   └───main.yml                    prerequisites installation task is located here
+```
 ## Deployment steps
 
 1) Check ansible version on your PC via `ansible --version` command. To execute command you need Ansible 2.15.5+. If you don't have Ansible, you should install it via [this guide](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html).
@@ -15,7 +47,7 @@ This playbook is created to automatically deploy k3s 1-node cluster.
       ```bash
       sudo apt install ansible
       ```
-2) Check availability on the target machine with
+2) Check availability on the target machine using this command:
    ```bash
    ssh -o StrictHostKeyChecking=no -i "your-private-key.pem" machine-user@111.111.111.111
    ``` 
@@ -34,7 +66,7 @@ This playbook is created to automatically deploy k3s 1-node cluster.
    cat <your_public_key_file> >> ~/.ssh/authorized_keys
    ```
 
-4) Add target machine to the `hosts` file, which is located in playbook folder. You need to edit this line: `ubuntu@111.111.111.111 ansible_ssh_private_key_file=/home/user/.ssh/my-private-key.pem`, where:
+4) Add target machine to the `hosts` file, which is located in the playbook folder. You need to edit this line: `ubuntu@111.111.111.111 ansible_ssh_private_key_file=/home/user/.ssh/my-private-key.pem`, where:
    + ubuntu is username with sudo rights on target machine;
    + 111.111.111.111 - ip address of targen machine;
    + ansible_ssh_private_key_file is a path to your private key file.
