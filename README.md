@@ -14,9 +14,9 @@ repository
 │   ansible.cfg                             Ansible configuration file
 └───roles
 │   └───helms-setup                         Keycloak installation role
-│   │   │  └───defaults
+│   │   └───defaults
 │   │   │      └───main.yml                 Keycloak values are located here
-│   │   │  └───tasks
+│   │   └───tasks
 │   │   │      └───main.yml                 Keycloak installation script is located here
 │   └───k3s-setup                           K3s installation role
 │   │   └───defaults                        K3s installation values are located here
