@@ -2,6 +2,12 @@
 
 This playbook is created to automatically deploy k3s 1-node cluster.
 
+### Preparing for playbook execution
+
+Your remote host must have opened next TCP ports:
+1) 22 (for SSH)
+2) 80 (for HTTP)
+3) 6443 (for accessing Kubernetes API)
 
 ## Repository structure 
 
@@ -68,9 +74,19 @@ repository
 
 4) Add target machine to the `hosts` file, which is located in the playbook folder. You need to edit this line: `ubuntu@111.111.111.111 ansible_ssh_private_key_file=/home/user/.ssh/my-private-key.pem`, where:
    + ubuntu is username with sudo rights on target machine;
-   + 111.111.111.111 - ip address of targen machine;
+   + 111.111.111.111 - ip address of target machine;
    + ansible_ssh_private_key_file is a path to your private key file.
 5) Now you can execute playbook with `ansible-playbook playbook.yml` command in the terminal, being in the directory where playbook is located.
+
+## Testing steps
+
+1) After the playbook successfully executed, check the fetched/kubeconfig/machine-user@111.111.111.111/etc/rancher/k3s folder. There you can find k3s.yaml - the target-machine kubeconfig. Check this line: `server: https://ip-111-111-111-111:6443`. ip-111-111-111-111 - is your remote server **hostname**. We will need it.
+2) Now ssh to the target machine and test the installation of k3s using:
+   ```bash
+      kubectl get nodes
+   ```
+   If it works fine, lets proceed.
+3) Now we should test keycloak. We can do it, by typing `keycloak.hostname:80` in your browser. **hostname** should be taken from step 1.
 
 ## Environment Variables
 
