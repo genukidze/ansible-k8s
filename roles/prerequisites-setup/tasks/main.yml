@@ -1,9 +1,5 @@
 ---
 
-- name: Granting sudo to all tasks in this block
-  become: yes
-  block:
-
     - name: Install Vim
       package:
         name: vim
