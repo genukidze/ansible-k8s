@@ -84,4 +84,9 @@ In k3s-setup you should set `k3s_version` variable to define a needed k3s versio
 
 Also you should set up `keycloak_chart_version` in helms-setup role and `openebs_version` in openEBS-setup role.
 
-Other variables are intuitive to use.
+Other variables:
+
+| Variable | Meaning |
+|--|---------|
+| helm_keycloak_repo_url | Content Cell |
+| : "https://charts.bitnami.com/bitnami" | Content Cell |
