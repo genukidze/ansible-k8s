@@ -15,7 +15,7 @@ This playbook is created to automatically deploy k3s 1-node cluster.
       ```bash
       sudo apt install ansible
       ```
-2) Check availability on the target machine with `ssh -o StrictHostKeyChecking=no -i "your-private-key.pem" machine-user@111.111.111.111` command. Use your own ssh-keys. Public key must be present on the target machine, and private key must be kept on your playbook-executor host.  Replace private key, machine-user and ip with your own values.
+2) Check availability on the target machine with ```bash ssh -o StrictHostKeyChecking=no -i "your-private-key.pem" machine-user@111.111.111.111``` command. Use your own ssh-keys. Public key must be present on the target machine, and private key must be kept on your playbook-executor host.  Replace private key, machine-user and ip with your own values.
 3) If you don't know how to generate ssh keys - follow this guide:
    + Install openssh-client:
    ```bash
